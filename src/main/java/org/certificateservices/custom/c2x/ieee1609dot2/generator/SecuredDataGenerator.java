@@ -437,10 +437,13 @@ public class SecuredDataGenerator {
 		COEREncodable[] recipientInfos =(COEREncodable[]) ed.getRecipients().getSequenceValues();
 
 		SecretKey decryptionKey = null;
+		RecipientInfo recipientInfo = null;
 
 		for(COEREncodable ri : recipientInfos){
 			HashedId8 reference = getReference((RecipientInfo) ri);
+			recipientInfo = (RecipientInfo) ri;
 			Receiver reciever = recieverStore.get(reference);
+
 			if(reciever != null){
 				decryptionKey = reciever.extractDecryptionKey(cryptoManager, (RecipientInfo) ri);
 				if(decryptionKey != null){
@@ -450,7 +453,11 @@ public class SecuredDataGenerator {
 		}
 
 		if(decryptionKey == null){
-			throw new IllegalArgumentException("Error decrypting data, no matching Reciever info could be found to retrieve the decryption key.");
+			String add = "";
+			if (recipientInfo != null) {
+				add = ", reference=" + getReference(recipientInfo) + " type=" + recipientInfo.getType();
+			}
+			throw new IllegalArgumentException("Error decrypting data, no matching Reciever info could be found (among " + recipientInfos.length + " recipients) to retrieve the decryption key" + add);
 		}
 
 		SymmetricCiphertext symmetricCiphertext = ed.getCipherText();
