@@ -4,4 +4,4 @@ TODO.txt
 c2c-common.iml
 /build/
 /bin/
-.gradle
+/.gradle/
