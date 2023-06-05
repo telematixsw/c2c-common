@@ -21,3 +21,7 @@ dependencies {
     testImplementation 'net.bytebuddy:byte-buddy:1.6.5'          // allows mocking of classes (in addition to interfaces)
     testImplementation 'org.objenesis:objenesis:2.5.1'    // allows mocking of classes without default constructor (together with CGLIB)
 }
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
