@@ -226,7 +226,9 @@ public class ETSITS102941MessagesCaGenerator {
         InnerEcRequestSignedForPop innerEcRequestSignedForPop = new InnerEcRequestSignedForPop(innerSigned.getProtocolVersion(),innerSigned.getContent());
         EtsiTs102941Data etsiTs102941Data = new EtsiTs102941Data(Version.V1,new EtsiTs102941DataContent(innerEcRequestSignedForPop));
 
-        return securedDataGenerator.selfSignAndEncryptData(headerInfo,etsiTs102941Data.getEncoded(),signerPublicKey,signerPrivateKey,getRecipientAlgorithm(recipient),new Recipient[]{new CertificateRecipient(recipient)});
+        EncryptResult res = securedDataGenerator.selfSignAndEncryptData(headerInfo,etsiTs102941Data.getEncoded(),signerPublicKey,signerPrivateKey,getRecipientAlgorithm(recipient),new Recipient[]{new CertificateRecipient(recipient)});
+        res.setPlainData(etsiTs102941Data);
+        return res;
     }
 
     /**
@@ -417,8 +419,13 @@ public class ETSITS102941MessagesCaGenerator {
 
             verifySignedMessage(outerSignature, certStore, trustStore, "EnrolmentResponseMessage");
 
-            return new VerifyResult<>(outerSignedData.getSignature().getType(), outerSignedData.getSigner(),
+            VerifyResult<InnerEcResponse> result = new VerifyResult<>(outerSignedData.getSignature().getType(), outerSignedData.getSigner(),
                     outerSignedData.getTbsData().getHeaderInfo(), innerEcResponse);
+
+            result.setOuterDataSigned(outerSignature);
+            result.setRequestData(requestData);
+
+            return result;
         }catch(Exception e){
             return (VerifyResult<InnerEcResponse>) convertToParseMessageCAException(e, null, null);
         }

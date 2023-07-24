@@ -13,6 +13,7 @@
 package org.certificateservices.custom.c2x.ieee1609dot2.generator;
 
 import org.bouncycastle.util.encoders.Hex;
+import org.certificateservices.custom.c2x.asn1.coer.COERSequence;
 import org.certificateservices.custom.c2x.ieee1609dot2.datastructs.secureddata.Ieee1609Dot2Data;
 
 import javax.crypto.SecretKey;
@@ -27,6 +28,8 @@ public class EncryptResult {
 
     SecretKey secretKey;
     Ieee1609Dot2Data encryptedData;
+    COERSequence plainData;
+    COERSequence signedData;
 
     /**
      * Main constructor
@@ -53,6 +56,14 @@ public class EncryptResult {
     public Ieee1609Dot2Data getEncryptedData() {
         return encryptedData;
     }
+
+    public COERSequence getPlainData() { return plainData; }
+
+    public void setPlainData(COERSequence plainData) { this.plainData = plainData; }
+
+    public COERSequence getSignedData() { return signedData; }
+
+    public void setSignedData(COERSequence signedData) { this.signedData = signedData; }
 
     @Override
     public String toString() {

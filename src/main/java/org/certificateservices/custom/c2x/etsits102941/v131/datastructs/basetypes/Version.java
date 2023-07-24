@@ -13,13 +13,14 @@
 package org.certificateservices.custom.c2x.etsits102941.v131.datastructs.basetypes;
 
 import org.certificateservices.custom.c2x.asn1.coer.COERInteger;
+import org.certificateservices.custom.c2x.ieee1609dot2.datastructs.basic.Uint8;
 
 /**
  * Class representing Version integer constants.
  *
  * @author Philip Vendil, p.vendil@cgi.com
  */
-public class Version extends COERInteger{
+public class Version extends Uint8/*COERInteger*/{
 
     public static final Version V1 = new Version(1);
 

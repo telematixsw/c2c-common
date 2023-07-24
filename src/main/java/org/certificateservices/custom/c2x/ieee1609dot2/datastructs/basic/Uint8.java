@@ -38,6 +38,7 @@ public class Uint8 extends COERInteger {
 		super(value,0,255);
 	}
 
+	public Uint8(long value) { super(value, 0, 255); }
 
 	@Override
 	public String toString() {

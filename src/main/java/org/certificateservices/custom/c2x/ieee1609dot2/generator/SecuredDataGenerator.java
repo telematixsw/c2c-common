@@ -520,7 +520,10 @@ public class SecuredDataGenerator {
 	 * @throws GeneralSecurityException if internal problems occurred encrypting the data.
 	 */
 	public EncryptResult selfSignAndEncryptData(HeaderInfo hi, byte[] message, PublicKey signerPublicKey, PrivateKey signerPrivateKey, AlgorithmIndicator encAlg,Recipient[] recipients) throws IllegalArgumentException, SignatureException, GeneralSecurityException, IOException{
-		return encryptData(encAlg, genSignedData(hi, message, signerPublicKey, signerPrivateKey).getEncoded(), recipients);
+		Ieee1609Dot2Data signedData = genSignedData(hi, message, signerPublicKey, signerPrivateKey);
+		EncryptResult res = encryptData(encAlg, signedData.getEncoded(), recipients);
+		res.setSignedData(signedData);
+		return res;
 	}
 
 	/**

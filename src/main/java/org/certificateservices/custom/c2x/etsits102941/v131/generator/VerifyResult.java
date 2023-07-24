@@ -12,6 +12,8 @@
  *************************************************************************/
 package org.certificateservices.custom.c2x.etsits102941.v131.generator;
 
+import org.certificateservices.custom.c2x.etsits102941.v131.datastructs.messagesca.EtsiTs102941Data;
+import org.certificateservices.custom.c2x.etsits103097.v131.datastructs.secureddata.EtsiTs103097DataSigned;
 import org.certificateservices.custom.c2x.ieee1609dot2.datastructs.basic.Signature;
 import org.certificateservices.custom.c2x.ieee1609dot2.datastructs.secureddata.HeaderInfo;
 import org.certificateservices.custom.c2x.ieee1609dot2.datastructs.secureddata.SignerIdentifier;
@@ -82,5 +84,26 @@ public class VerifyResult<T> {
                 "  headerInfo=" + (headerInfo != null ? headerInfo.toString().replaceAll("\n", "\n  ") : "NONE") +  ",\n"+
                 "  value=" + getValue().toString().replaceAll("\n","\n  ") + "\n" +
                 "]";
+    }
+
+
+    EtsiTs103097DataSigned outerDataSigned;
+
+    public EtsiTs103097DataSigned getOuterDataSigned() {
+        return outerDataSigned;
+    }
+
+    public void setOuterDataSigned(EtsiTs103097DataSigned outerDataSigned) {
+        this.outerDataSigned = outerDataSigned;
+    }
+
+    EtsiTs102941Data requestData;
+
+    public EtsiTs102941Data getRequestData() {
+        return requestData;
+    }
+
+    public void setRequestData(EtsiTs102941Data requestData) {
+        this.requestData = requestData;
     }
 }
